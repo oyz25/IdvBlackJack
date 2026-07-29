@@ -2,7 +2,9 @@
     "clickbook": {
         "recognition": "TemplateMatch",
         "template": "book.png",
+        "threshold": 0.45,
         "action": "Click",
+        "post_delay": 1500,
         "rate_limit": 3000,
         "timeout": -1,
         "next": [
@@ -12,7 +14,9 @@
     "混沌纷争": {
         "recognition": "TemplateMatch",
         "template": "混沌纷争.png",
+        "threshold": 0.45,
         "action": "Click",
+        "post_delay": 1500,
         "rate_limit": 3000,
         "timeout": -1,
         "next": [
@@ -22,7 +26,18 @@
     "BlackJack": {
         "recognition": "TemplateMatch",
         "template": "BlackJack.png",
+        "roi": [
+            307,
+            165,
+            231,
+            226
+        ],
+        "threshold": 0.65,
+        "order_by": "Score",
+        "index": 0,
         "action": "Click",
+        "target": true,
+        "post_delay": 1500,
         "rate_limit": 3000,
         "timeout": -1,
         "next": [
@@ -32,7 +47,9 @@
     "Start": {
         "recognition": "TemplateMatch",
         "template": "Start.png",
+        "threshold": 0.45,
         "action": "Click",
+        "post_delay": 1500,
         "rate_limit": 3000,
         "timeout": -1,
         "next": [
@@ -42,8 +59,11 @@
     "Battle": {
         "recognition": "TemplateMatch",
         "template": "Ready.png",
-        "threshold": 0.8,
+        "threshold": 0.45,
         "action": "Click",
+        "post_delay": 1500,
+        "rate_limit": 3000,
+        "timeout": -1,
         "next": [
             "ReadyStart"
         ]
@@ -51,7 +71,15 @@
     "ReadyStart": {
         "recognition": "TemplateMatch",
         "template": "ReadyStart.png",
+        "roi": [
+            1016,
+            621,
+            286,
+            62
+        ],
+        "threshold": 0.65,
         "action": "Click",
+        "post_delay": 1500,
         "rate_limit": 3000,
         "timeout": -1,
         "next": [
@@ -61,7 +89,9 @@
     "Confirm": {
         "recognition": "TemplateMatch",
         "template": "Confirm.png",
+        "threshold": 0.45,
         "action": "Click",
+        "post_delay": 1500,
         "rate_limit": 3000,
         "timeout": -1,
         "next": [
@@ -71,7 +101,9 @@
     "Continue": {
         "recognition": "TemplateMatch",
         "template": "Continue.png",
+        "threshold": 0.45,
         "action": "Click",
+        "post_delay": 1500,
         "rate_limit": 3000,
         "timeout": -1,
         "next": [
@@ -81,6 +113,7 @@
     "BackToMain": {
         "recognition": "TemplateMatch",
         "template": "BackToMain.png",
+        "threshold": 0.45,
         "action": "Click",
         "post_delay": 3000,
         "rate_limit": 3000,

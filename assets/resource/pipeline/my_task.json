@@ -1,12 +1,92 @@
 {
-    "MyTask1": {},
-    "MyTask2": {},
-    "MyTask3": {},
-    "MyTask4": {
-        "recognition": "Custom",
-        "custom_recognition": "my_reco_222",
-        "action": "Custom",
-        "custom_action": "my_action_111"
+    "clickbook": {
+        "recognition": "TemplateMatch",
+        "template": "book.png",
+        "action": "Click",
+        "rate_limit": 3000,
+        "timeout": -1,
+        "next": [
+            "混沌纷争"
+        ]
     },
-    "OcrTask": {}
+    "混沌纷争": {
+        "recognition": "TemplateMatch",
+        "template": "混沌纷争.png",
+        "action": "Click",
+        "rate_limit": 3000,
+        "timeout": -1,
+        "next": [
+            "BlackJack"
+        ]
+    },
+    "BlackJack": {
+        "recognition": "TemplateMatch",
+        "template": "BlackJack.png",
+        "action": "Click",
+        "rate_limit": 3000,
+        "timeout": -1,
+        "next": [
+            "Start"
+        ]
+    },
+    "Start": {
+        "recognition": "TemplateMatch",
+        "template": "Start.png",
+        "action": "Click",
+        "rate_limit": 3000,
+        "timeout": -1,
+        "next": [
+            "Battle"
+        ]
+    },
+    "Battle": {
+        "recognition": "TemplateMatch",
+        "template": "Ready.png",
+        "threshold": 0.8,
+        "action": "Click",
+        "next": [
+            "ReadyStart"
+        ]
+    },
+    "ReadyStart": {
+        "recognition": "TemplateMatch",
+        "template": "ReadyStart.png",
+        "action": "Click",
+        "rate_limit": 3000,
+        "timeout": -1,
+        "next": [
+            "Confirm"
+        ]
+    },
+    "Confirm": {
+        "recognition": "TemplateMatch",
+        "template": "Confirm.png",
+        "action": "Click",
+        "rate_limit": 3000,
+        "timeout": -1,
+        "next": [
+            "Continue"
+        ]
+    },
+    "Continue": {
+        "recognition": "TemplateMatch",
+        "template": "Continue.png",
+        "action": "Click",
+        "rate_limit": 3000,
+        "timeout": -1,
+        "next": [
+            "BackToMain"
+        ]
+    },
+    "BackToMain": {
+        "recognition": "TemplateMatch",
+        "template": "BackToMain.png",
+        "action": "Click",
+        "post_delay": 3000,
+        "rate_limit": 3000,
+        "timeout": -1,
+        "next": [
+            "clickbook"
+        ]
+    }
 }

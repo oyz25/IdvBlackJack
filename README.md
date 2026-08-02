@@ -1,43 +1,258 @@
 <!-- markdownlint-disable MD033 MD041 -->
-<p align="center">
-  <img alt="LOGO" src="https://cdn.jsdelivr.net/gh/MaaAssistantArknights/design@main/v1/icons/maa-logo_512x512.png" width="256" height="256" />
-</p>
 
 <div align="center">
 
-# MaaPracticeBoilerplate
+# Maa-IDV
+
+基于 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 开发的 BlackJack 半自动化助手。
 
 </div>
 
-本仓库为 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 所提供的项目模板，开发者可基于此模板直接创建自己的 MaaXXX 项目。
+## 简介
+本项目通过模板匹配识别游戏界面，并自动完成进入活动、开始战斗、结算以及重复挑战等操作。
 
-> **MaaFramework** 是基于图像识别技术、运用 [MAA](https://github.com/MaaAssistantArknights/MaaAssistantArknights) 开发经验去芜存菁、完全重写的新一代自动化黑盒测试框架。
-> 低代码的同时仍拥有高扩展性，旨在打造一款丰富、领先、且实用的开源库，助力开发者轻松编写出更好的黑盒测试程序，并推广普及。
+由 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 和 [MaaPracticeBoilerplate](https://github.com/MaaXYZ/MaaPracticeBoilerplate) 强力驱动！
 
-## 即刻开始
+## 功能介绍
 
-**请不要直接克隆本仓库！你应该通过模板创建自己的项目！**  
+目前脚本可以自动执行以下流程：
 
-请阅读 [如何开发](./docs/zh_cn/develop/how_to_develop.md)。
+1. 点击书本入口
+2. 进入「混沌纷争」
+3. 选择 BlackJack
+4. 点击开始
+5. 进入战斗准备界面
+6. 点击准备或开始按钮
+7. 等待战斗结束
+8. 点击继续
+9. 返回主界面
+10. 自动重新开始下一轮
 
-向本模板仓库提交改动前，请阅读 [PR 规范](./docs/zh_cn/develop/pull_request_guidelines.md)。
+脚本会在部分节点识别失败时重复检测，直到对应按钮出现。
 
-## 生态共建
+## 运行流程
 
-MAA 正计划建设为一类项目，而非舟的单一软件。
+任务节点的执行顺序如下：
 
-若您的项目依赖于 MaaFramework，我们欢迎您将它命名为 MaaXXX, MXA, MAX 等等。当然，这是许可而不是限制，您也可以自由选择其他与 MAA 无关的名字，完全取决于您自己的想法！
+```
+clickbook
+    ↓
+混沌纷争
+    ↓
+BlackJack
+    ↓
+Start
+    ↓
+Battle
+    ↓
+ReadyStart
+    ↓
+Continue
+    ↓
+BackToMain
+    ↓
+clickbook
+```
 
-同时，我们也非常欢迎您提出 PR，在 [社区项目列表](https://github.com/MaaXYZ/MaaFramework#%E7%A4%BE%E5%8C%BA%E9%A1%B9%E7%9B%AE) 中添加上您的项目！
+完成一轮后，脚本会重新进入活动并继续运行。
+
+## 工作原理
+
+本项目主要使用 MaaFramework 的 TemplateMatch 模板匹配功能。
+
+脚本需要以下模板图片：
+
+```
+book.png
+混沌纷争.png
+BlackJack.png
+Start.png
+Ready.png
+ReadyStart.png
+Continue.png
+BackToMain.png
+```
+
+请将模板图片放置在 MaaFramework 项目所使用的资源目录中。
+
+## 分辨率说明
+
+部分节点使用了固定识别区域，例如：
+
+```
+"roi": [
+    1016,
+    621,
+    286,
+    62
+]
+```
+
+这表示只在画面的指定区域内寻找目标。
+
+因此，不同分辨率、窗口大小或画面比例可能导致识别失败。建议使用制作模板图片时相同的分辨率运行。
+
+当前包含固定识别区域的节点有：
+
+BlackJack
+ReadyStart
+Continue
+
+若脚本无法识别这些按钮，可以尝试：
+
+1. 检查游戏窗口大小
+2. 重新截取对应模板图片
+3. 修改 roi 坐标
+4. 适当降低或提高 threshold
+5. 删除 roi，让脚本在整个画面中搜索
+6. 配置说明
+7. 匹配阈值
+
+## 配置说明
+
+匹配阈值
+
+当前大部分节点使用：
+
+```
+"threshold": 0.7
+```
+
+数值越高，识别要求越严格。
+
+经常识别不到：可以尝试降低至 0.65
+经常误识别：可以尝试提高至 0.8
+建议每次只调整少量数值并重新测试
+
+## 等待时间
+
+例如：
+
+```
+"post_delay": 10000
+```
+
+表示点击后等待 10000 毫秒，也就是 10 秒。
+
+如果设备加载速度较慢，可以适当增加等待时间。
+
+## 重复识别
+
+部分节点的 next 中包含自身，例如：
+
+```
+"next": [
+    "Start",
+    "BlackJack"
+]
+```
+
+这表示：
+
+如果成功进入下一界面，则继续执行 Start
+如果仍然停留在当前界面，则再次尝试识别 BlackJack
+
+这样可以减少加载延迟造成的流程中断。
+
+## 使用方法
+
+1. 安装并配置 MaaFramework
+2. 将本项目放入正确的资源目录
+3. 准备所有模板图片
+4. 启动游戏并进入主界面
+5. 保持游戏窗口可见
+6. 在 MaaFramework 中启动入口任务 clickbook
+
+建议首次运行时观察完整流程，确认点击位置和模板识别结果正确。
 
 ## 常见问题
 
-请阅读 [常见问题](./docs/zh_cn/develop/faq.md)。
+脚本一直停留在某个界面
+
+可能原因：
+
+模板图片与当前画面差异较大
+游戏窗口分辨率不一致
+threshold 设置过高
+roi 坐标不适合当前分辨率
+按钮被动画、弹窗或其他界面遮挡
+
+可以查看 MaaFramework 日志，确认具体是哪个节点识别失败。
+
+## 脚本点击了错误的位置
+
+可以尝试：
+
+重新截取更精确的模板图片
+提高 threshold
+为节点增加 roi
+检查是否存在外观相似的按钮
+检查模板图片是否包含过多背景
+
+## 战斗结束后没有继续
+
+请检查：
+
+Continue.png 是否与实际按钮一致
+Continue 节点的 roi 是否正确
+战斗时间是否超过当前等待时间
+是否出现了额外的结算弹窗
+
+## 脚本运行太快或太慢
+
+可以修改：
+
+```
+"post_delay": 3000
+```
+
+以及：
+
+```
+"rate_limit": 3000
+```
+
+时间单位均为毫秒。
+
+## 注意事项
+
+本项目依赖图像识别，无法保证在所有设备和分辨率下正常工作
+游戏更新后，按钮样式变化可能导致模板失效
+请勿在运行过程中移动或缩放游戏窗口
+请根据游戏规则及服务条款合理使用本项目
+使用本项目造成的任何游戏账号或设备问题由使用者自行承担
+
+## 项目结构
+
+示例：
+
+```
+.
+├── README.md
+├── LICENSE
+├── assets
+│   └── resource
+│       ├── pipeline
+│       │   └── task.json
+│       └── image
+│           ├── book.png
+│           ├── 混沌纷争.png
+│           ├── BlackJack.png
+│           ├── Start.png
+│           ├── Ready.png
+│           ├── ReadyStart.png
+│           ├── Continue.png
+│           └── BackToMain.png
+└── ...
+```
+
+实际目录结构请以你的 MaaFramework 项目配置为准。
 
 ## 鸣谢
 
-本项目由 **[MaaFramework](https://github.com/MaaXYZ/MaaFramework)** 强力驱动！
+本项目使用以下开源项目和模板：
 
-感谢以下开发者对本项目作出的贡献（下面链接改成你自己的项目地址）:
+MaaFramework
+MaaPracticeBoilerplate
 
-[![Contributors](https://contrib.rocks/image?repo=MaaXYZ/MaaFramework&max=1000)](https://github.com/MaaXYZ/MaaFramework/graphs/contributors)
+感谢 MaaXYZ 及相关贡献者提供的框架、项目模板和开发文档。

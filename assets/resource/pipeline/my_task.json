@@ -2,25 +2,27 @@
     "clickbook": {
         "recognition": "TemplateMatch",
         "template": "book.png",
-        "threshold": 0.45,
+        "threshold": 0.7,
         "action": "Click",
-        "post_delay": 2000,
-        "rate_limit": 3000,
+        "post_delay": 1000,
+        "rate_limit": 1000,
         "timeout": -1,
         "next": [
-            "混沌纷争"
+            "混沌纷争",
+            "clickbook"
         ]
     },
     "混沌纷争": {
         "recognition": "TemplateMatch",
         "template": "混沌纷争.png",
-        "threshold": 0.45,
+        "threshold": 0.7,
         "action": "Click",
-        "post_delay": 2000,
-        "rate_limit": 3000,
+        "post_delay": 1000,
+        "rate_limit": 1000,
         "timeout": -1,
         "next": [
-            "BlackJack"
+            "BlackJack",
+            "混沌纷争"
         ]
     },
     "BlackJack": {
@@ -32,34 +34,36 @@
             110,
             111
         ],
-        "threshold": 0.65,
+        "threshold": 0.7,
         "order_by": "Score",
         "index": 0,
         "action": "Click",
         "target": true,
-        "post_delay": 2000,
-        "rate_limit": 3000,
+        "post_delay": 1000,
+        "rate_limit": 1000,
         "timeout": -1,
         "next": [
-            "Start"
+            "Start",
+            "BlackJack"
         ]
     },
     "Start": {
         "recognition": "TemplateMatch",
         "template": "Start.png",
-        "threshold": 0.55,
+        "threshold": 0.7,
         "action": "Click",
-        "post_delay": 2000,
-        "rate_limit": 3000,
+        "post_delay": 10000,
+        "rate_limit": 10000,
         "timeout": -1,
         "next": [
-            "Battle"
+            "Battle",
+            "Start"
         ]
     },
     "Battle": {
         "recognition": "TemplateMatch",
         "template": "Ready.png",
-        "threshold": 0.55,
+        "threshold": 0.7,
         "action": "Click",
         "post_delay": 10000,
         "rate_limit": 10000,
@@ -72,7 +76,7 @@
     "BattleAgain": {
         "recognition": "TemplateMatch",
         "template": "Ready.png",
-        "threshold": 0.55,
+        "threshold": 0.7,
         "action": "Click",
         "post_delay": 10000,
         "next": [
@@ -88,13 +92,14 @@
             286,
             62
         ],
-        "threshold": 0.55,
+        "threshold": 0.7,
         "action": "Click",
-        "post_delay": 420000,
-        "rate_limit": 1000,
+        "post_delay": 20000,
+        "rate_limit": 20000,
         "timeout": -1,
         "next": [
-            "Continue"
+            "Continue",
+            "ReadyStart"
         ]
     },
     "Continue": {
@@ -106,25 +111,27 @@
             69,
             51
         ],
-        "threshold": 0.55,
+        "threshold": 0.7,
         "action": "Click",
-        "post_delay": 7000,
-        "rate_limit": 7000,
+        "post_delay": 3000,
+        "rate_limit": 3000,
         "timeout": -1,
         "next": [
-            "BackToMain"
+            "BackToMain",
+            "Continue"
         ]
     },
     "BackToMain": {
         "recognition": "TemplateMatch",
         "template": "BackToMain.png",
-        "threshold": 0.55,
+        "threshold": 0.7,
         "action": "Click",
         "post_delay": 10000,
-        "rate_limit": 3000,
+        "rate_limit": 10000,
         "timeout": -1,
         "next": [
-            "clickbook"
+            "clickbook",
+            "BackToMain"
         ]
     }
 }

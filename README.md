@@ -96,7 +96,9 @@ BackToMain.png
 当前包含固定识别区域的节点有：
 
 BlackJack
+
 ReadyStart
+
 Continue
 
 若脚本无法识别这些按钮，可以尝试：

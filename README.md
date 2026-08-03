@@ -4,14 +4,15 @@
 
 # Maa-IDV
 
-基于 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 开发的 BlackJack 半自动化助手。
+基于 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 开发的 第五人格黑杰克 半自动化助手。
 
 </div>
 
 ## 简介
 本项目通过模板匹配识别游戏界面，并自动完成进入活动、开始战斗、结算以及重复挑战等操作。
 
-由 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 和 [MaaPracticeBoilerplate](https://github.com/MaaXYZ/MaaPracticeBoilerplate) 强力驱动！
+由 [MaaFramework](https://github.com/MaaXYZ/MaaFramework) 强力驱动！
+[MaaPracticeBoilerplate](https://github.com/MaaXYZ/MaaPracticeBoilerplate) 作为项目模板
 
 ## 功能介绍
 
